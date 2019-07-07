@@ -15,7 +15,6 @@ function EmotionAnalysis(props){
                 onReceivedResult={updateResult}
                 toggleDetection = {props.toggleDetection}
                 emotionComplete = {props.emotionComplete}
-                nextEmotionReady = {props.nextEmotionReady}
                 currentEmotion = {props.currentEmotion}
                 compareImages = {props.compareImages}
                 failed = {props.failed}

@@ -1,6 +1,7 @@
 import React from 'react'
 
 class ImageUpload extends React.Component {
+    //Convert binary string thumbnail from API to form that can be diplayed
     arrayBufferToBase64(buffer) {
         let binary = '';
         let bytes = [].slice.call(new Uint8Array(buffer));
@@ -10,6 +11,9 @@ class ImageUpload extends React.Component {
         return window.btoa(binary);
     }
 
+    //Call API to turn images to thumbnails and display
+    //url: image url from submit form
+    //call: image call number
     imageThumb(url, call) {
         const image = this.props.convertToByteArray(url);
         const apiKey = '3971438f266447d7bee3355c5580e99d';
@@ -25,6 +29,7 @@ class ImageUpload extends React.Component {
                 response.arrayBuffer().then((buffer) => {
                     let base64flag = 'data:image/jpeg;base64,';
                     let imageStr = this.arrayBufferToBase64(buffer);
+                    //Display image in correct document element once loaded
                     switch (call) {
                         case 1:
                             document.querySelector('.resize1').src = base64flag + imageStr;
@@ -50,6 +55,7 @@ class ImageUpload extends React.Component {
         let { imagePreviewUrl} = this.props;
         let $imagePreview = [];
         let loaded = 0;
+        //cycle through images 
         for (let i = 0; i < imagePreviewUrl.length; i++) {
             if (imagePreviewUrl) {
                 this.imageThumb(imagePreviewUrl[i], i + 1);
@@ -63,18 +69,20 @@ class ImageUpload extends React.Component {
             }
         }
         let userInput;
+        //Only allow images to be changed if not yet verified identity
         if (this.props.dontUpload === null) {
             userInput = <form onSubmit={(e) => this._handleSubmit(e)}>
                 <input className="fileInput"
                     type="file"
                     onChange={(e) => this.props.handleImageChange(e)} />
                 <button className="submitButton" type="submit"
-                    onClick={(e) => this.props.handleSubmit(e)}>Clear Images
+                    onClick={(e) => this.props.handleReset(e)}>Clear Images
                 </button>
             </form>
         } else {
             userInput = null;
         }
+        
         return (
             <div className="previewComponent">
                 {userInput}

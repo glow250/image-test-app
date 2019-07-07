@@ -16,11 +16,12 @@ class App extends Component {
     };
     this.faceIds = [];
     this.handleImageChange = this.handleImageChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleReset = this.handleReset.bind(this)
     this.compareImages = this.compareImages.bind(this)
     this.convertToByteArray = this.convertToByteArray.bind(this)
   }
 
+  //Pushed function to App since used in ImageUpload and MyWebcam
   convertToByteArray = (image) => {
     //Load module
     const base64 = require('base64-js');
@@ -30,8 +31,8 @@ class App extends Component {
     return base64.toByteArray(base64string)
   };
 
-  //reset state 
-  handleSubmit(e) {
+  //clear uploaded images 
+  handleReset(e) {
     e.preventDefault();
     this.faceIds = [];
     this.setState({
@@ -41,6 +42,7 @@ class App extends Component {
     })
   }
 
+  //Input new image for validification
   handleImageChange(e) {
     e.preventDefault();
 
@@ -62,11 +64,13 @@ class App extends Component {
     reader.readAsDataURL(file)
   }
 
+  //Compares image sent from webcam to uploaded images to detect similarity
   compareImages(faceId) {
     this.faceIds.unshift(faceId);
     this.compareFace();
   }
 
+  //Compares images in state to see if all the same person
   compareFace() {
     //using sync API request
     let success = true;
@@ -90,6 +94,7 @@ class App extends Component {
     });
   }
 
+  //retrieve the Face ID for each uploaded image for comparison later
   getFaceId(url) {
     const apiKey = '80d011c4c1ea46d88e97241bc578aec5';
     const apiEndpoint = 'https://australiaeast.api.cognitive.microsoft.com/face/v1.0/detect?returnFaceId="true"'
@@ -113,7 +118,6 @@ class App extends Component {
       <div>
         <Title title={'Are You Who You Say You Are?'} />
         <ImageUpload
-          file={this.state.file}
           imagePreviewUrl={this.state.imagePreviewUrl}
           handleSubmit={this.handleSubmit}
           handleImageChange={this.handleImageChange}

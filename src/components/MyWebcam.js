@@ -7,7 +7,7 @@ class MyWebcam extends Component {
         this.execute = true;
         this.lengthTimer = null;
         this.timerId = null;
-        this.currentImage = null;
+        this.currentImage = null; 
         this.isCapturing = false; //Signifies capturing process still running, so don't display unwanted data to user
         this.state = {
             image: null
@@ -39,12 +39,14 @@ class MyWebcam extends Component {
         }
     }
 
+    //Start timer for detecting next emotion
     startEmotion() {
         this.lengthTimer = setInterval(() => {
             this.failed();
         }, 5000)
     }
 
+    //If timer clocks over before emotion detected the test is failed but can be restarted after 5 seconds
     failed() {
         if (this.props.currentEmotion < 4) {
             clearInterval(this.lengthTimer);
@@ -71,7 +73,7 @@ class MyWebcam extends Component {
             if (response.ok) {
                 //Convert response to json object
                 response.json().then(data => {
-                    //from data received we extract the emotion value 
+                    //from data received we extract the emotion value based on current emotion detecting
                     let emotAmount;
                     if (currentEmotion === 0) {
                         emotAmount = (data[0] != null ? data[0].faceAttributes.emotion.neutral : 0);
@@ -85,6 +87,7 @@ class MyWebcam extends Component {
                     //Convert happiness value to an integer then a percentage
                     emotAmount = (Math.round(emotAmount * 100))
                     //Display player with current happiness value if not 100 yet and still capturing
+                    //Slightly lower to make easier since on a time constraint
                     if (this.isCapturing && emotAmount < 98) {
                         //onReceivedResult is the update function for displaying to user
                         this.props.onReceivedResult(emotAmount);
@@ -95,6 +98,7 @@ class MyWebcam extends Component {
                         clearInterval(this.lengthTimer);
                         this.startEmotion();
                         if (currentEmotion === 3) {
+                            //Executes when completed final emotion successfully
                             if (this.execute) {
                                 this.execute = false;
                                 clearInterval(this.lengthTimer);

@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
 
+//Displays info on app and current state executing
 class EmotionInfoBox extends Component {
     render() {
         const emotions = ["Neutral", "Surprise", "Sadness", "Happy"];
         const currentEmotion = this.props.currentEmotion;
         let emotionDisplay = [];
+
+        //When image has been attempted to validated app can't be run again
         if(this.props.success !== null){
             console.log(this.props.success)
             if(this.props.success === false){
@@ -14,9 +17,11 @@ class EmotionInfoBox extends Component {
                 emotionDisplay.push([<h1>Identity Verified!</h1>])
             }
         }
+        //displayed if didn't complete emotion fast enough
         else if (this.props.failed) {
             emotionDisplay.push([<h1>Failed to Match</h1>])
         }
+        //Displaying current emotion status
         else if (this.props.start && currentEmotion < 4) {
             emotionDisplay = [<h1>Display Emotion: {emotions[currentEmotion]}</h1>];
             if (currentEmotion > 0) {
@@ -37,6 +42,7 @@ class EmotionInfoBox extends Component {
             emotionDisplay.push([<p>4. You only have 5 seconds to display each emotion so be fast</p>])
             emotionDisplay.push([<p>5. We then confirm if you are the person in the images or not</p>])
         }
+
         return (
             <div className="EmotionInfoBox">
                 {emotionDisplay}
