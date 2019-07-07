@@ -1,0 +1,59 @@
+h1{
+    text-align: center;
+}
+
+.imageColumn{
+    float: left;
+    white-space: nowrap;
+}
+
+h2{
+    margin: 10px;
+}
+
+p{
+    text-align: left;
+    margin-left: 20%;
+    margin-right: 10%;
+}
+
+form{
+    text-align: center;
+}
+
+div{
+    text-align: center;
+}
+
+.image-input{
+    text-align: center;
+}
+
+ul {
+    white-space: nowrap;
+    padding: 5px;
+  }
+  
+li{
+    margin: 20;
+}
+
+.images{
+    margin: 20px;
+}
+ul, li {
+    list-style: none;
+    display: inline;
+}
+
+.EmotionInfoBox{
+    float: left;
+    width: 50%;
+    height: 400px;
+}
+
+.EmotionAnalysis{
+    float: left;
+    width: 50%;
+    height: 400px;
+}
