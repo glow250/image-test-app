@@ -20,6 +20,7 @@ function EmotionAnalysis(props){
                 compareImages = {props.compareImages}
                 failed = {props.failed}
                 hasImages = {props.hasImages}
+                convertToByteArray={props.convertToByteArray}
             />
             {/* Give result state object as prop */}
             <Result 

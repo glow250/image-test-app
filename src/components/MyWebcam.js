@@ -85,7 +85,7 @@ class MyWebcam extends Component {
                     //Convert happiness value to an integer then a percentage
                     emotAmount = (Math.round(emotAmount * 100))
                     //Display player with current happiness value if not 100 yet and still capturing
-                    if (this.isCapturing && emotAmount < 100) {
+                    if (this.isCapturing && emotAmount < 98) {
                         //onReceivedResult is the update function for displaying to user
                         this.props.onReceivedResult(emotAmount);
                     } else {
